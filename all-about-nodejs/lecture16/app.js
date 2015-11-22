@@ -8,4 +8,4 @@ let decodedString = e.decode(encodedString);
 console.log("Decoded: ", decodedString);
 
 let qr = e.qrgen(encodedString, 'cipher-qr.png');
-if (qr) console.log("Ecoded your faggot ass.");
+if (qr) console.log("Ecoded your secret message.");
