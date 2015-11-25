@@ -9,6 +9,8 @@ const session = require('express-session');
 const config = require('./config/config.js');
 const ConnectMongo = require('connect-mongo')(session);
 const mongoose = require('mongoose').connect(config.dbUrl);
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('hogan-express'));
@@ -34,7 +36,11 @@ if('development' === env) {
 		}));
 }
 
-require('./routes/routes.js')(express,app);
+require('./auth/passportAuth.js')(passport, FacebookStrategy, config, mongoose);
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./routes/routes.js')(express,app, passport);
 
 app.listen(port, function(){
 	console.log("Chatcat is loading...");
