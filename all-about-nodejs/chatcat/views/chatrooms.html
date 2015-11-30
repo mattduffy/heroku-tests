@@ -5,7 +5,17 @@
 	<title>ChatCAT - Chatrooms</title>
 	<link rel="stylesheet" href="css/chatroom.css">
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		$(function(){
+			var hosts = {{config.host}};
+			var socket = io.connect(host+'/roomlist');
+			socket.on('connect', function() {
+				console.log("Connection established!");
 
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="cr-container">

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (express, app, passport)=>{
+module.exports = (express, app, passport, config)=>{
 	let router = express.Router();
 	router.get('/', (req,res,next)=>{
 		res.render('index', {'title': "Welcome to ChitChat Cat Chat."});
@@ -21,7 +21,7 @@ module.exports = (express, app, passport)=>{
 	}
 
 	router.get('/chatrooms', securePages, (req,res,next)=>{
-		res.render('chatrooms', {'title': "Chitty Chitty Chatcat.", user: req.user});
+		res.render('chatrooms', {'title': "Chitty Chitty Chatcat.", user: req.user, config:config});
 	});
 
 	router.get('/logout', function(req, res, next){
