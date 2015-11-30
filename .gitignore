@@ -3,6 +3,7 @@
 *.swo
 
 ./*/node_modules/*
+node_modudes*
 *.zip
 npm-debug.log
 
