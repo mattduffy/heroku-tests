@@ -45,20 +45,15 @@ app.use(passport.session());
 require('./routes/routes.js')(express, app, passport, config);
 
 // app.listen(port, function(){
-// 	console.log("Chatcat is loading...");
-// 	console.log("\thttp://localhost:",port);
-// 	console.log("\tApp Runtime Mode: ", env);
+// 	console.log("Chatcat on port: " + port);
+//  console.log("Runtime mode: "+ env);
 // });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', port);
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 require('./socket/socket.js')(io, rooms);
 
-debugger;
-server.listen(app.get(port), function(){
-	debugger;
-	console.log("ChatCat is loading...");
-	console.log("\thttp://localhost:",app.get('port'));
-	console.log("\tApp Runtime Mode: ", env);
+server.listen(app.get(port), function() {
+	console.log("Chatcat on port: " + app.get('port')+" (Runtime mode: "+env+ ")");
 });

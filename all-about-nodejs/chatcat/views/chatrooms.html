@@ -8,7 +8,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		$(function(){
-			var hosts = {{config.host}};
+			var host = "{{config.host}}";
 			var socket = io.connect(host+'/roomlist');
 			socket.on('connect', function() {
 				console.log("Connection established!");
