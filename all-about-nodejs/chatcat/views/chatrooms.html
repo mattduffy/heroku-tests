@@ -12,6 +12,27 @@
 			var socket = io.connect(host+'/roomlist');
 			socket.on('connect', function() {
 				console.log("Connection established!");
+			});
+			socket.on('msg', function(msg) {
+				conole.log(msg);
+			});
+			socket.on('roomupdate', function(data){
+				var procData = JSON.parse(data);
+				console.log(procData);
+				$('.roomlist').html('');
+				for (var i=0; i<procData.length; i++){
+					var str = '<a href="room/'+procData[i].room_number +'"><li>'+ procData[i].room_name +'</li></a>';
+					console.log(str);
+					$('.roomlist').prepend(str);
+				}
+			});
+			$(document).on('click', '#create', function(){
+				var room_name = $('input.newRoom').val();
+				if ("" != room_name) {
+					var room_number = parseInt(Math.random() * 1000);
+					socket.emit('new_room', {room_name: room_name, room_number: room_number});
+					$('.newRoom').val('');
+				}
 
 			});
 		});
@@ -30,9 +51,9 @@
 		</div>
 		<div class="cr-roomlist">
 			<ul class="roomlist">
-				<a href="#"><li>NodeJS</li></a>
+				<!-- <a href="#"><li>NodeJS</li></a>
 				<a href="#"><li>Cloud Computing</li></a>
-				<a href="#"><li>MongoDB</li></a>
+				<a href="#"><li>MongoDB</li></a> -->
 			</ul>
 		</div>
 	</div>
