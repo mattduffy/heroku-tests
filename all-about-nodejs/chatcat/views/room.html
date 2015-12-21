@@ -6,6 +6,21 @@
 	<link rel="stylesheet" href="/css/room.css">
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	$(function(){
+			var host = '{{config.host}}';
+			var messages = io.connect(host +'/messages');
+			var roomNum = {{room_number}};
+			var userName = '{{user.fullname}}';
+			var userPic = '{{user.profilePic}}';
+
+			messages.on('connect', function(){
+				console.log('connection established');
+				messages.emit('joinroom', {room:roomNum, user:userName, userPic:userPic});
+
+			});
+		});
+	</script>
 </head>
 <body>
 <div class="rm-container">
