@@ -20,12 +20,12 @@ module.exports = (express, app, passport, config, rooms)=>{
 		}
 	}
 	function findTitle(room_id){
-		var name = "";
-		for(var room in rooms) {
-			if(room_id == room.room_id){
-				name = room.room_name;
+		let name;
+		rooms.forEach(function(item, index){
+			if(room_id == item.room_number) {
+				name = item.room_name;
 			}
-		}
+		});
 		return name;
 	};
 
