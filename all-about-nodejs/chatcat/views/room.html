@@ -7,6 +7,7 @@
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
+	'use strict';
 	$(function(){
 			var host = '{{config.host}}';
 			var messages = io.connect(host +'/messages');
@@ -17,8 +18,37 @@
 			messages.on('connect', function(){
 				console.log('connection established');
 				messages.emit('joinroom', {room:roomNum, user:userName, userPic:userPic});
-
 			});
+
+			messages.on('meesagefeed', function(data){
+				var message = JSON.parse(data);
+				console.log("watch me, watch me!");
+				updateMessageFeed(message.userPic, message.message);
+			});
+
+			$(document).on('keyup', '.newmessage', function(e){
+				if(13 === e.which && '' != $(this).val()) {
+					messages.emit('newMessage', {
+						room_number: roomNum,
+						user: userName,
+						userPic: userPic,
+						message: $(this).val()
+					});
+					updateMessageFeed(userPic, $(this).val());
+					$(this).val('');
+				}
+			});
+
+			function updateMessageFeed(userPic, message) {
+				var str = '<li>';
+						str += '<div class="msgbox">';
+						str += '<div class="pic"><img src="'+ userPic +'"></div>';
+						str += '<div class="msg"><p>'+ message +'</p></div>';
+						str += '</div>';
+						str += '</li>';
+				$(str).hide().prependTo($('.messages')).slideDown(200);
+				console.log("Safari: ", str);
+			}
 		});
 	</script>
 </head>
@@ -34,18 +64,13 @@
 		</div>
 		<div class="rm-messages">
 			<ul class="messages">
-				<li>
+				<!-- <li>
 					<div class="msgbox">
 						<div class="pic"><img src="/images/profilepic.jpg">Sachin Bhatnagar</div>
 						<div class="msg"><p>Hi there this looks nice !</p></div>
 					</div>
-				</li>
-				<li>
-					<div class="msgbox">
-						<div class="pic"><img src="/images/profilepic.jpg">Sachin Bhatnagar</div>
-						<div class="msg"><p>Hi there this looks nice !</p></div>
-					</div>
-				</li>
+				</li> -->
+
 			</ul>
 		</div>
 		<div class="rm-users">
