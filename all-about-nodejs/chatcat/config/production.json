@@ -4,7 +4,7 @@
 	"fb": {
 		"appId": "964302893627215",
 		"appSecret": "f2714a133262b3d2599cf68dd62dc202",
-		"callbackURL": "http://localhost:3000/auth/facebook/callback"
+		"callbackURL": "http://fapcat.herokuapp.com/auth/facebook/callback"
 	},
-	"host": "http://localhost:3000"
+	"host": "http://fapcat.herokuapp.com"
 }
