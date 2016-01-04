@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 *.swo
+*.pdf
 
 ./*/node_modules/*
 node_modudes*
